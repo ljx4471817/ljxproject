@@ -1,6 +1,8 @@
 package cloud.cloud;
 
 
+import com.alibaba.fastjson.JSON;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,6 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 发送模板短信请求
@@ -50,9 +53,11 @@ public class SendCode   //注意自己的类名对应好！
         try
         {
             String url = "https://api.netease.im/sms/sendtemplate.action"; //网址可以不修改
-            String encStr1 = URLEncoder.encode("Tom", "utf-8");
+           String encStr1 = URLEncoder.encode("Tom", "utf-8");
             String encStr2 = URLEncoder.encode("name", "utf-8"); // url编码；防止不识别中文
-            String params = "templateid=4082612&mobiles=[\"15519106778\"]"
+            //转换String[]为json格式.需要用fastjson
+            String json_arr_String = JSON.toJSONString(tel.tels30);
+                        String params = "templateid=3902929&mobiles="+json_arr_String
                     + "&params=" + "[\"" + encStr1 + "\",\""+ encStr2 + "\"]";
             System.out.println("params：" + params);
 
